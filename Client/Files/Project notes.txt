@@ -1,0 +1,99 @@
+-- Files:
+	Client Socket 
+	Server Socket
+
+
+-- purpose: 
+	Upload a file from server directory to the client directory
+	Must be able to transfer file types:
+		- txt
+		- doc
+		- jpg
+
+-- Storyboard (in words)
+	1. Server is already running
+	2. Client connects to the server (socket.connect)
+	3. Successful connection message to let the client know they are connected 
+	4. Client chooses:  i. They want to transfer files to the server (put command)
+			 	 ii. They want to retrieve files from the server (get command)
+				iii. They want to change files names on the server side
+	5. Client should be able to see all the files on the server side
+	6. Client inputs the the request that is sent to the server
+	7. Let the Client know their request has been sent to the server
+	8. The server processes the request and sends back a response to the client
+	9. The client socket is active until user wishes to quit
+	10. The server socket should run infinetly
+
+-- Coding:	
+	1. Make a file server.py * Put Names, Student IDs, Purpose of the file on top 
+	2. Make a file client.py * Put Names, Student IDs, Purpose of the file on top 
+	3. Create a TCP socket on the server.py
+	4. Create a connection socket on the client.py
+	5. Implement user inputs (the different commands they may need)
+		i. Ask for the user's command (put, get, changefilename, help, bye)
+	6. Create a process request method in the client.py
+	7. Create a parse request method in the server.py
+	8. Create a process response method in the server.py
+	
+	
+	-- Client.py:
+		method User inputs:	
+			1. Put Filename
+			2. Get Filename
+			3. Change oldFilename newFilename
+			4. help
+			5. bye
+		
+
+		Method Parse Inputs(input):
+				opcode, filename, rest = input.split(' ')
+				bitOp = getOpcode(opcode)
+				return bitOp, filename, rest
+
+		
+		processRequest(bitOp, filename, rest):
+			bitFnL = getFilenameLength(filename)
+			bitFL = getFileLength(bitFnL)
+			switch(bitOp)
+				case 000:
+					FS = getFileSize(bitFL)
+					FD = getFileData(filename)
+					return FD
+				case 001:
+					return bitFL
+				case 010:
+					NFL = getNewFilenameLength(rest)
+					newFilename = getNewLength(NFL)
+					return newFilename
+				case _:
+					help = getCommands(bitOp)
+					return help
+
+	--
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
